@@ -88,9 +88,9 @@ stormReports.prototype.loadReports = function() {
   var self = this;
   
   //d3.csv("http://www.spc.noaa.gov/climo/reports/today_torn.csv")
-   d3.csv('data/today_wind.csv')
+   d3.csv('data/yesterday_wind.csv')
     .row(function(d) { return { time: d.Time, scale: d.F_Scale, location: d.Location, county: d.County,
-      state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments}; })
+      state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments, type: "Reported Wind"}; })
     .get(function(error, rows) {
       var reports = self.layer_viz.append('g');
       
@@ -103,12 +103,22 @@ stormReports.prototype.loadReports = function() {
         .attr("fill", "#f2eeb3")
         .attr('class', 'storm-reports')
         .attr('r', 3)
-        .style("display", "block");
+        .style("display", "block")
+        .on('mouseover', function() {
+          d3.select(this)
+            .attr('d', self.hover)
+            .transition()
+              .duration(1000)
+              .attr('r', 10)
+            .transition()
+              .duration(400)
+              .attr('r', 3)  
+        });
      });
      
-    d3.csv('data/today_hail.csv')
+    d3.csv('data/yesterday_hail.csv')
     .row(function(d) { return { time: d.Time, scale: d.F_Scale, location: d.Location, county: d.County,
-      state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments}; })
+      state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments, type: 'Reported Hail'}; })
     .get(function(error, rows) {
       var reports = self.layer_viz.append('g');
 
@@ -121,12 +131,22 @@ stormReports.prototype.loadReports = function() {
         .attr("fill", "#ff974f")
         .attr('class', 'storm-reports')
         .attr('r', 3)
-        .style("display", "block");
+        .style("display", "block")
+        .on('mouseover', function() {
+          d3.select(this)
+            .attr('d', self.hover)
+            .transition()
+              .duration(1000)
+              .attr('r', 10)
+            .transition()
+              .duration(400)
+              .attr('r', 3)  
+        });
      });
      
-   d3.csv('data/today_torn.csv')
+   d3.csv('data/yesterday_torn.csv')
     .row(function(d) { return { time: d.Time, scale: d.F_Scale, location: d.Location, county: d.County,
-      state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments}; })
+      state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments, type: 'Reported Tornado'}; })
     .get(function(error, rows) {
       var reports = self.layer_viz.append('g');
 
@@ -149,19 +169,19 @@ stormReports.prototype.loadReports = function() {
             .transition()
               .duration(400)
               .attr('r', 3)  
-        })
+        });
         
      });
 }
 
 stormReports.prototype.hover = function(d) { 
-  console.log('D', d)
   var county = d.county;
   var state = d.state;
   var location = d.location;
   
   $('#intro').hide();
-  $('#state').html('<span class="legend-title">State</span>: ' + d.state);
-  $('#county').html('<span class="legend-title">County</span>: ' + d.county);
-  $('#comments').html('<span class="legend-title">Comments</span>: ' + d.comments);
+  $('#type').html("Type: " + d.type)
+  $('#state').html(d.state);
+  $('#county').html(d.county + ', ');
+  $('#comments').html('<span class="legend-title">Comments</span>: <span style="font-size:9pt">' + d.comments + '</span>');
 }

@@ -74,7 +74,7 @@ body {
 
 #toolbar-left {
   float:left;
-  width:410px;
+  width:530px;
   position:relative;
 }
 
@@ -122,4 +122,13 @@ body {
 
 .count {
   font-size:25pt;
+}
+
+#comments {
+  line-height:14px;
+}
+
+#type {
+  line-height: 10px;
+  margin-bottom: 14px;
 }
