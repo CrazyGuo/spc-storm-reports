@@ -4,8 +4,8 @@ var stormReports = function() {
   var w = document.width;
   
   this.projection = d3.geo.albers()
-    .scale(900)
-    .center([-0, 38])
+    .scale(1700)
+    .center([5, 38])
     .translate([w / 2, h / 2]);
 
   this.path = d3.geo.path()
@@ -25,7 +25,7 @@ var stormReports = function() {
   });
   this.layer_viz.call(this.zoom);
   
-  this.updatePath();
+  //this.updatePath();
   
   this.createMap();
 }
@@ -63,6 +63,7 @@ stormReports.prototype.createMap = function () {
   var self = this;
   
   d3.json("data/world.json", function(error, world) {
+    console.log('world', world)
     self.layer_viz.insert("path")
       .datum(topojson.object(world, world.objects.world))
       .attr('class', 'world')
@@ -71,6 +72,12 @@ stormReports.prototype.createMap = function () {
     self.layer_viz.insert("path")
       .datum(topojson.object(world, world.objects.counties))
       .attr('class', 'counties')
+      .attr("d", self.path);
+      
+    self.layer_viz.insert("path")
+      .datum(topojson.object(world, world.objects.water))
+      .style('fill', '#FEFEFE')
+      .attr('class', 'lakes')
       .attr("d", self.path);
       
     self.loadReports();
@@ -86,14 +93,16 @@ stormReports.prototype.loadReports = function() {
       state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments}; })
     .get(function(error, rows) {
       var reports = self.layer_viz.append('g');
-
+      
+      $('#wind-count .count').html(rows.length);
+      
       reports.selectAll("circle")
         .data(rows)
       .enter().insert("circle")
         .attr("transform", function(d) { return "translate(" + self.projection([d.longitude,d.latitude]) + ")";})
-        .attr("fill", "blue")
+        .attr("fill", "#f2eeb3")
         .attr('class', 'storm-reports')
-        .attr('r', 2)
+        .attr('r', 3)
         .style("display", "block");
      });
      
@@ -103,13 +112,15 @@ stormReports.prototype.loadReports = function() {
     .get(function(error, rows) {
       var reports = self.layer_viz.append('g');
 
+      $('#hail-count .count').html(rows.length);
+
       reports.selectAll("circle")
         .data(rows)
       .enter().insert("circle")
         .attr("transform", function(d) { return "translate(" + self.projection([d.longitude,d.latitude]) + ")";})
-        .attr("fill", "white")
+        .attr("fill", "#ff974f")
         .attr('class', 'storm-reports')
-        .attr('r', 2)
+        .attr('r', 3)
         .style("display", "block");
      });
      
@@ -119,11 +130,13 @@ stormReports.prototype.loadReports = function() {
     .get(function(error, rows) {
       var reports = self.layer_viz.append('g');
 
+      $('#tornado-count .count').html(rows.length);
+
       reports.selectAll("circle")
         .data(rows)
       .enter().insert("circle")
         .attr("transform", function(d) { return "translate(" + self.projection([d.longitude,d.latitude]) + ")";})
-        .attr("fill", "red")
+        .attr("fill", "#FF0000")
         .attr('class', 'storm-reports')
         .attr('r', 3)
         .style("display", "block")

@@ -1,5 +1,5 @@
 body {
-  background:#000;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNjY2MiPjwvcmVjdD4KPC9zdmc+");
   margin:0px;
 }
 #mapDiv {
@@ -72,25 +72,54 @@ body {
   font-weight:bold;
 }
 
-#keywords {
-  position:absolute;
-  right:10px;
-  top:10px;
-  height:20px;
+#toolbar-left {
+  float:left;
+  width:410px;
+  position:relative;
 }
 
-#keywords a {
-  color:#FEFEFE;
-  text-decoration:none;
+#toolbar-right {
+  float:right;
+  width:410px;
+  position:relative;
 }
 
-#keywords a:hover {
-  color:#eee;
-  text-decoration:underline;
-}
-
-.keyword {
+#toolbar-right div {
   float: left;
-  margin-right: 10px;
-  font-size: 14pt;
+  width: 100px;
+  text-align: center;
+  background: #333;
+  border: 1px dotted #444;
+  margin-right: 2px;
+}
+
+#wind-count .count {
+  color:#f2eeb3;  
+}
+
+#hail-count .count {
+  color:#ff974f;
+}
+
+#tornado-count .count {
+  color:#FF0000;
+}
+
+#updated {
+  background: #333;
+  border: 1px dotted #444;
+  padding: 3px;
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding-bottom: 0px;
+}
+
+.title-main {
+  font-size:22pt;
+}
+
+.count {
+  font-size:25pt;
 }
