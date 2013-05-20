@@ -63,7 +63,7 @@ stormReports.prototype.createMap = function () {
   var self = this;
   
   d3.json("data/world.json", function(error, world) {
-    console.log('world', world)
+    //console.log('world', world)
     self.layer_viz.insert("path")
       .datum(topojson.object(world, world.objects.world))
       .attr('class', 'world')
