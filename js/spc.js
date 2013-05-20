@@ -28,7 +28,6 @@ var stormReports = function() {
   this.updatePath();
   
   this.createMap();
-  this.loadReports();
 }
 
 
@@ -74,6 +73,7 @@ stormReports.prototype.createMap = function () {
       .attr('class', 'counties')
       .attr("d", self.path);
       
+    self.loadReports();
   });
 }
 
