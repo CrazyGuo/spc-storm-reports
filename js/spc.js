@@ -88,7 +88,7 @@ stormReports.prototype.loadReports = function() {
   var self = this;
   
   //d3.csv("http://www.spc.noaa.gov/climo/reports/today_torn.csv")
-   d3.csv('data/20_wind.csv')
+   d3.csv('data/0524_wind.csv')
     .row(function(d) { return { time: d.Time, scale: d.F_Scale, location: d.Location, county: d.County,
       state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments, type: "Reported Wind"}; })
     .get(function(error, rows) {
@@ -116,7 +116,7 @@ stormReports.prototype.loadReports = function() {
         });
      });
      
-    d3.csv('data/20_hail.csv')
+    d3.csv('data/0524_hail.csv')
     .row(function(d) { return { time: d.Time, scale: d.F_Scale, location: d.Location, county: d.County,
       state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments, type: 'Reported Hail'}; })
     .get(function(error, rows) {
@@ -144,6 +144,7 @@ stormReports.prototype.loadReports = function() {
         });
      });
      
+   /*
    d3.csv('data/20_torn.csv')
     .row(function(d) { return { time: d.Time, scale: d.F_Scale, location: d.Location, county: d.County,
       state: d.State, latitude: d.Lat, longitude: d.Lon, comments: d.Comments, type: 'Reported Tornado'}; })
@@ -172,6 +173,7 @@ stormReports.prototype.loadReports = function() {
         });
         
      });
+   */
 }
 
 stormReports.prototype.hover = function(d) { 
